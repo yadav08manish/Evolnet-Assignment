@@ -1,0 +1,140 @@
+﻿@using ContactInformation.Models
+@model ContactModel
+<script type="text/javascript">
+</script>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Contact Details
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" >
+                        <thead>
+                            <tr>
+                                <th>
+                                    <div>
+                                        <a> ContactId</a>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div>
+                                        <a> First Name</a>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div>
+                                        <a> Last Name</a>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div>
+                                        <a> Email Address</a>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div>
+                                        <a> Mobile Number</a>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div>
+                                        <a> Status</a>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div>
+                                        <a> Edit</a>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div>
+                                        <a> Remove</a>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.lstContacts != null && Model.lstContacts.Count > 0)
+                            {
+                                for (int i = 0; i < Model.lstContacts.Count; i++)
+                                {
+                                    <tr>
+                                        <td>@Model.lstContacts[i].Id</td>
+                                        <td>@Model.lstContacts[i].FirstName</td>
+
+                                        <td>@Model.lstContacts[i].LastName  </td>
+                                        <td>@Model.lstContacts[i].EmailAddress</td>
+                                        <td>@Model.lstContacts[i].MobileNumber</td>
+                                        <td>@Model.lstContacts[i].EmpStatus</td>
+                                        <td>
+                                            <a id="lnkEditContact" 
+                                               href="#" onclick="javascript:Edit('@Model.lstContacts[i].Id.ToString()','@Model.lstContacts[i].FirstName.ToString()','@Model.lstContacts[i].LastName.ToString()','@Model.lstContacts[i].MobileNumber.ToString()','@Model.lstContacts[i].EmailAddress.ToString()','@Model.lstContacts[i].EmpStatus.ToString()')"><span class="glyphicon glyphicon-pencil"></span></a>
+                                        </td>
+                                        <td>
+                                            <a id="lnkDeleteContact"  title="Remove details" style="cursor:pointer"
+                                               onclick="javascript:Delete('@Model.lstContacts[i].Id.ToString()')"><span class="glyphicon glyphicon-remove"></span></a>
+                                        </td>
+
+                                    </tr> 
+
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    //function for deleting employee's record  
+    function Delete(ID) {
+        var ans = confirm("Are you sure you want to delete this Record?");
+        if (ans) {
+            $.ajax({
+                url: "/Contact/RemoveContact/" + ID,
+                type: "POST",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (result) {
+                    window.location.href = "/Contact/Contact";
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+    }
+    
+
+
+    
+    //to edit the contact details asign the valus to the controls
+    function Edit(id, firstName, lastName, mobileNumber, emailAddress, status) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SetModel","Contact")',
+            data: JSON.stringify({id:id, firstName:firstName, lastName:lastName, mobileNumber: mobileNumber, emailAddress: emailAddress,status: status}),
+            contentType: "application/json; chatset=utf-8",
+            dataType: "json",
+            cache: false,
+            success: function (data) {
+             }, 
+            error: function (response) {
+                //alert("error: " + response);
+            }
+        });
+
+
+        $("#txtFirstName").val(firstName);
+        $("#txtLastName").val(lastName);
+        $("#txtPhoneNumber").val(mobileNumber);
+        $("#txtEmailAddess").val(emailAddress);
+        $("#txtId").val(id);
+        
+        $("#ddlStatus").val(status);
+
+    }
+</script>

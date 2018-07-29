@@ -1,0 +1,9 @@
+E:\manish\ContactInformation\BLContacts\bin\Debug\BLContacts.dll
+E:\manish\ContactInformation\BLContacts\bin\Debug\BLContacts.pdb
+E:\manish\ContactInformation\BLContacts\bin\Debug\ContactEntites.dll
+E:\manish\ContactInformation\BLContacts\bin\Debug\DLContacts.dll
+E:\manish\ContactInformation\BLContacts\bin\Debug\ContactEntites.pdb
+E:\manish\ContactInformation\BLContacts\bin\Debug\DLContacts.pdb
+E:\manish\ContactInformation\BLContacts\obj\Debug\BLContacts.csprojResolveAssemblyReference.cache
+E:\manish\ContactInformation\BLContacts\obj\Debug\BLContacts.dll
+E:\manish\ContactInformation\BLContacts\obj\Debug\BLContacts.pdb

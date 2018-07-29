@@ -1,0 +1,4 @@
+E:\manish\ContactInformation\ContactEntites\bin\Debug\ContactEntites.dll
+E:\manish\ContactInformation\ContactEntites\bin\Debug\ContactEntites.pdb
+E:\manish\ContactInformation\ContactEntites\obj\Debug\ContactEntites.dll
+E:\manish\ContactInformation\ContactEntites\obj\Debug\ContactEntites.pdb

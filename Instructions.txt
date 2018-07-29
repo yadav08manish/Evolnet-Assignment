@@ -1,0 +1,17 @@
+1. Please Restore Databse file:- I used Sql server 2012, Please restore the Database backup file.
+
+
+I created applocation in Visual studio 2013.
+
+1. Please change The Connection String in webconfig file if required
+		contactinformation\myapi\web.config
+2. Please change the Base url of WebApi in App.connfig file
+		contactinformation\contactinformation\web.config
+
+
+
+MyAPI:   webApi SourceCode which is existed in Solution itself.
+ContactInformation: Application Source code
+BLContacts: BL Layer
+DLContacts: DL Layer
+ContactEntites: Shared Model is available for BL and DL layer

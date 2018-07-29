@@ -1,0 +1,158 @@
+﻿@using ContactInformation.Models
+@model ContactModel
+@{
+    ViewBag.Title = "Contact";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<h2>Contact Details</h2>
+<!DOCTYPE.html>
+<div id="divMessage"></div>
+@using (Html.BeginForm("Contact", "Contact", FormMethod.Post, new { @id="frmContactetails",enctype="multipart/form-data"}))
+{ 
+    <style>
+        #divMessage {
+            z-index:99999 !important;
+            font-family:Verdana:11px;
+        }
+        #divMessage .modal-dialog.message-wrapper
+         {
+            position: absolute;
+            left: 50%;
+            margin-left: -240px;
+            top:40%;
+        }
+    </style>
+    <script type="text/javascript">
+       
+        if ('@TempData["SuccessMessage"]' != null && '@TempData["SuccessMessage"]' != "") {
+            //showMessagePopUp("divMessage", 'success', '@TempData["SuccessMessage"]');
+            alert('@TempData["SuccessMessage"]');
+        }
+        else {
+            //alert(2);
+        }
+    </script>
+    @Html.ValidationSummary(true)
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-3"> 
+            <div class="clearfix ErrorMsgOuter" >
+                @Html.LabelFor(m => m.FirstName) <span class="mandatoryFieldnormal">*</span>
+                @Html.TextBoxFor(m => m.FirstName, new { @id="txtFirstName" , @class="form-control"})
+                @Html.ValidationMessageFor(m=>m.FirstName)
+                <span id="valFirstName" class="field-validation-valid" style="color: red"></span>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="clearfix ErrorMsgOuter">
+                @Html.LabelFor(m => m.LastName) <span class="mandatoryFieldnormal">*</span>
+                @Html.TextBoxFor(m => m.LastName, new { @id = "txtLastName", @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.LastName)
+                
+            </div>
+        </div>
+        
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="clearfix ErrorMsgOuter">
+                @Html.LabelFor(m => m.MobileNumber) <span class="mandatoryFieldnormal">*</span>
+                @Html.TextBoxFor(m => m.MobileNumber, new { @id = "txtPhoneNumber", @class = "form-control numericOnly", maxlength=10 })
+                @Html.ValidationMessageFor(m => m.MobileNumber)
+                <span id="valPhoneNumber" class="field-validation-valid" style="color: red"></span>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="clearfix ErrorMsgOuter">
+                @Html.LabelFor(m => m.EmailAddress) <span class="mandatoryFieldnormal">*</span>
+                @Html.TextBoxFor(m => m.EmailAddress, new { @id = "txtEmailAddess", @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.EmailAddress)
+                
+
+            </div>
+        </div>
+        
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="clearfix ErrorMsgOuter">
+                @Html.LabelFor(m => m.EmpStatus) <span class="mandatoryFieldnormal">*</span>
+                @*@Html.DropDownListFor(m => m.EmpStatus, new SelectList((SelectList)ViewBag.Status, "Value", "Text", Model.EmpStatus), new { id = "ddlStatus" })*@
+                @Html.DropDownListFor(m => m.EmpStatus, new List<SelectListItem> {
+           new SelectListItem{Text="Active", Value="Active"},
+           new SelectListItem{Text="InActive", Value="InActive"},
+       }
+, new { @id = "ddlStatus" , @class="form-control"})
+                @Html.ValidationMessageFor(m => m.EmpStatus)
+
+            </div>
+            </div>
+
+        <div class="col-sm-3" style="display:none">
+            <div class="clearfix ErrorMsgOuter">
+                @Html.LabelFor(m => m.Id) <span class="mandatoryFieldnormal">*</span>
+                @Html.TextBoxFor(m => m.Id, new { @id = "txtId", @class = "form-control" })
+                
+                
+            </div>
+        </div>
+        </div>
+    <br />
+
+        <div class="row">
+            <div class="col-sm-2">
+                <input type="submit" id="btnSave" value="Save Details" class="btn btn-Primary" />
+                @*<input type="button" value="Save" style="display:none" />*@
+            </div>
+            <div class="col-sm-2">
+                @Html.ActionLink("Reset", "Contact", "Contact", null, new { @class = "btn btn-info" })
+            </div>
+        </div>
+    <br />
+   
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="div_lstContactDetails">
+                @Html.Partial("_ContactList",Model)
+            </div>
+        </div>
+    </div>
+
+    </div>
+}
+
+<script>
+    $(".numericOnly").bind('keypress', function (e) {
+        if (e.keyCode == '9' || e.keyCode == '16') {
+            return;
+        }
+        var code;
+        if (e.keyCode) code = e.keyCode;
+        else if (e.which) code = e.which;
+        if (e.which == '46')
+            return false;
+        if(code==8 || code==46)
+            return true;
+        if (code < 48 || code > 57)
+            return false;
+
+    });
+
+   
+        function showMessagePopUp(divId, className, message) {
+            alert(1);
+            if (message != null && message!="") {
+                $("#" + divId + "-text").html(message);
+                $("#" + divId + "-container").removeAttr('class').addClass("modal-content").addClass(className);
+
+                $("#" + divId + " h1").html(className);
+                $("#" + divId).modal('toggle');
+
+            }
+        }
+ 
+        
+   
+        
+</script>
